@@ -1,0 +1,10 @@
+apiVersion: v1 #define the API version for the pod resource
+kind: Pod
+metadata: #metadata about the pod, such as name, labels, etc.
+  name: firstpod
+spec: #pod specifications, such as containers, volumes, etc.
+  containers:
+   - name: nginx-container
+     image: nginx:latest
+     ports:
+      - containerPort: 80

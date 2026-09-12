@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: firstdeployment
+  annotations: #here we can add annotations to the deployment, such as the change-cause annotation to indicate the reason for the deployment
+    kubernetes.io/change-cause: "Initial deployment" #acts as commit message for the deployment, indicating the reason for the deployment
+spec:
+  replicas: 4
+  selector:   #here we need to specify the label selector to match the pods that belong to this ReplicaSet
+    matchLabels:
+      app: myapp
+  template: #here we define the pod template that will be used to create the pods managed by this ReplicaSet
+    metadata:
+      labels: #here we define the labels that will be applied to the pods created by this ReplicaSet
+        app: myapp
+    spec: #specs related to the pod template, such as containers, volumes, etc.
+      containers:
+        - name: nginx-container
+          image: httpd:latest
+          ports:
+            - containerPort: 80

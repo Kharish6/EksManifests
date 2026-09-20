@@ -1,12 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mynamespace1
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-limits
+  name: namespace1deplpoyment
   annotations:
     #here we can add annotations to the deployment, such as the change-cause annotation to indicate the reason for the deployment
     kubernetes.io/change-cause: "Initial deployment" #acts as commit message for the deployment, indicating the reason for the deployment
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     #here we need to specify the label selector to match the pods that belong to this ReplicaSet
     matchLabels:
@@ -20,15 +26,7 @@ spec:
     spec:
       #specs related to the pod template, such as containers, volumes, etc.
       containers:
-      - name: nginx-container
-        image: nginx:latest
+      - name: apache-container
+        image: httpd:latest
         ports:
         - containerPort: 80
-      resources:
-        #here we define the resource requests and limits for the container
-        requests:
-          memory: "64Mi" #minimum amount of memory that the container is guaranteed to have
-          cpu: "250m" #minimum amount of CPU that the container is guaranteed to have
-        limits:
-          memory: "1Gi" #maximum amount of memory that the container is allowed to use
-          cpu: "1" #maximum amount of CPU that the container is allowed to use

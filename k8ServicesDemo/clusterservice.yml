@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusteripservice
+spec:
+  selector:
+    app: myapp
+  ports:
+  - protocol: TCP
+    port: 80 #port uses by the service to expose the application to the outside world
+    targetPort: 80 #port on which the application is running inside the pod
+  type: ClusterIP

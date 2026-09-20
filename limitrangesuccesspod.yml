@@ -10,8 +10,8 @@ spec:
     resources:
       limits:
         #defined resource limits for the container, which specify the maximum amount of resources that the container can use
-        cpu: 400m
-        memory: 400Mi
+        cpu: "400m"
+        memory: "400Mi"
       requests:
-        cpu: 200m
-        memory: 200Mi
+        cpu: "200m"
+        memory: "200Mi"

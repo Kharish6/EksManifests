@@ -8,9 +8,9 @@ spec:
   - type: Container
     default:
       #if we do not specify the resource limits in the pod spec, then these values will be used
-      cpu: 500m
-      memory: 512Mi
+      cpu: "500m"
+      memory: "512Mi"
     defaultRequest:
       #if we do not specify the resource requests in the pod spec, then these values will be used
-      cpu: 250m
-      memory: 256Mi
+      cpu: "250m"
+      memory: "256Mi"

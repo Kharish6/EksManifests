@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: efsdemo
+  annotations:
+    #here we can add annotations to the deployment, such as the change-cause annotation to indicate the reason for the deployment
+    kubernetes.io/change-cause: "Initial deployment" #acts as commit message for the deployment, indicating the reason for the deployment
+spec:
+  replicas: 2
+  selector:
+    #here we need to specify the label selector to match the pods that belong to this ReplicaSet
+    matchLabels:
+      app: efsdemo
+  template:
+    #here we define the pod template that will be used to create the pods managed by this ReplicaSet
+    metadata:
+      labels:
+        #here we define the labels that will be applied to the pods created by this ReplicaSet
+        app: efsdemo
+    spec:
+      #specs related to the pod template, such as containers, volumes, etc.
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: efsstorage
+          mountPath: /usr/share/nginx/html #mount path inside the container where the EFS volume will be mounted
+      volumes:
+      - name: efsstorage
+        persistentVolumeClaim:
+          claimName: efs-pvc #reference to the PVC created in efspvc.yml

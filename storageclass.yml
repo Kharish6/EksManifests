@@ -1,0 +1,13 @@
+# create SA: eksctl create iamserviceaccount --name ebs-csi-driver-sa --namespace kube-system --cluster ekswitharish --region ap-south-1 --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy --approve
+# approve oidc provider : eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswitharish --approve
+# addon : eksctl create addon --name aws-ebs-csi-driver --cluster ekswitharish --force
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebsstorage
+provisioner: ebs.csi.aws.com
+parameters:
+  type: gp3
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain

@@ -1,0 +1,14 @@
+#eksctl create iamserviceaccount --name ec2-access-sa --namespace default --cluster ekswithharish --region ap-south-1 --attach-policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --approve
+#kubectl exec -it ec2accesspod -- /bin/bash
+apiVersion: v1 #define the API version for the pod resource
+kind: Pod
+metadata:
+  #metadata about the pod, such as name, labels, etc.
+  name: ec2accesspod
+spec:
+  serviceAccountName: ec2-access-sa
+  #pod specifications, such as containers, volumes, etc.
+  containers:
+  - name: ec2accesscontainer
+    image: amazon/aws-cli
+    command: [ "sleep", "3600" ]
